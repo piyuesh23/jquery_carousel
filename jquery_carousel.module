@@ -45,7 +45,7 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Number of Rows'),
     '#description' => t('whether next and prev links will be included'),
-    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#options' => array(0 => "False", 1 => "True"),
     '#default_value' => 1
   );
 
@@ -53,7 +53,7 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Pagination'),
     '#description' => t('whether pagination links will be included'),
-    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#options' => array(0 => "False", 1 => "True"),
     '#default_value' => 1
   );
 
@@ -61,7 +61,7 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Speed'),
     '#description' => t('Animation speed'),
-    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#options' => array(0 => "False", 1 => "True"),
     '#default_value' => 1
   );
 
@@ -69,7 +69,7 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Easing'),
     '#description' => t('supports the jQuery easing plugin'),
-    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#options' => array(0 => "False", 1 => "True"),
     '#default_value' => 1
   );
 
@@ -77,7 +77,7 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Autoscroll'),
     '#description' => t('Set to true to invoke auto scrolling, note when the mouse enters the carousel the interval will stop, it\'ll consequently begin when the mouse leaves.'),
-    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#options' => array(0 => "False", 1 => "True"),
     '#default_value' => 1
   );
 
@@ -92,7 +92,7 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Continuous'),
     '#description' => t('If set to true the carousel will continuously loop through its pages rather than scrolling all the way back to the first page.'),
-    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#options' => array(0 => "False", 1 => "True"),
     '#default_value' => 1
   );
 
@@ -100,7 +100,7 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Touch'),
     '#description' => t('If set to true the carousel will become draggable allowing you to flick through pages.'),
-    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#options' => array(0 => "False", 1 => "True"),
     '#default_value' => 1
   );
 
@@ -108,8 +108,8 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Disabled'),
     '#description' => t('If set to true carousel will no longer change state.'),
-    '#options' => array(0 => FALSE, 1 => TRUE),
-    '#default_value' => 1
+    '#options' => array(0 => "False", 1 => "True"),
+    '#default_value' => FALSE
   );
 
   return $form;

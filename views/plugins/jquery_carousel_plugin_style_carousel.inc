@@ -23,6 +23,10 @@ class jquery_carousel_plugin_style_carousel extends views_plugin_style {
     // Include ctools dependent support
     parent::options_form($form, $form_state);
     $carousel_config_form = jquery_carousel_config_form();
+    foreach($carousel_config_form as $key => $form_item) {
+      $carousel_config_form[$key]['#default_value'] = $this->options[$key] ? $this->options[$key] : $carousel_config_form[$key]['#default_value'];
+    }
+
     $form = array_merge($form, $carousel_config_form);
   }
 
