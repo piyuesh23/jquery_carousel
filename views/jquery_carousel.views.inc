@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * Implements hook_views_plugins()
+ */
+function jquery_carousel_views_plugins() {
+  return array(
+    'style' => array(
+      'jquery_carousel' => array(
+        'title' => t('jQuery Carousel plugin'),
+        'help' => t('Display the results as a jquery Carousel.'),
+        'handler' => 'jquery_carousel_plugin_style_carousel',
+        'path' => drupal_get_path('module', 'jquery_carousel') . '/views/plugins',
+        'type' => 'normal',
+        'uses options' => TRUE,
+        'uses row plugin' => TRUE,
+        'uses grouping' => FALSE,
+        'uses row class' => TRUE,
+        'theme' => 'jquery_carousel',
+        'theme path' => drupal_get_path('module', 'jquery_carousel') . '/views/theme',
+        'theme file' => 'jquery_carousel.theme.inc'
+      ),
+    ),
+  );
+}

@@ -1,0 +1,116 @@
+<?php
+
+// Trying to make sure the theme.inc get's loaded.
+include_once('views/theme/jquery_carousel.theme.inc');
+
+/**
+ * Implements hook_views_api().
+ */
+function jquery_carousel_views_api() {
+  return array(
+    'api' => '3',
+    'path' => drupal_get_path('module', 'jquery_carousel') . '/views'
+  );
+}
+
+function template_preprocess_jquery_carousel(&$vars) {
+  _jquery_carousel_preprocess_jquery_carousel($vars);
+}
+
+function jquery_carousel_config_form() {
+  $form = array();
+
+  $form['items_per_page'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Items per page'),
+    '#description' => t('Number of items to show on each page'),
+    '#default_value' => 1
+  );
+
+  $form['items_per_transition'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Items per transition'),
+    '#description' => t('number of items moved with each transition'),
+    '#default_value' => 1
+  );
+
+  $form['num_rows'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Number of Rows'),
+    '#description' => t('Number of rows for the carousel'),
+    '#default_value' => 1
+  );
+
+  $form['next_prev_links'] = array(
+    '#type' => 'select',
+    '#title' => t('Number of Rows'),
+    '#description' => t('whether next and prev links will be included'),
+    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#default_value' => 1
+  );
+
+  $form['pagination'] = array(
+    '#type' => 'select',
+    '#title' => t('Pagination'),
+    '#description' => t('whether pagination links will be included'),
+    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#default_value' => 1
+  );
+
+  $form['speed'] = array(
+    '#type' => 'select',
+    '#title' => t('Speed'),
+    '#description' => t('Animation speed'),
+    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#default_value' => 1
+  );
+
+  $form['easing'] = array(
+    '#type' => 'select',
+    '#title' => t('Easing'),
+    '#description' => t('supports the jQuery easing plugin'),
+    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#default_value' => 1
+  );
+
+  $form['autoScroll'] = array(
+    '#type' => 'select',
+    '#title' => t('Autoscroll'),
+    '#description' => t('Set to true to invoke auto scrolling, note when the mouse enters the carousel the interval will stop, it\'ll consequently begin when the mouse leaves.'),
+    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#default_value' => 1
+  );
+
+  $form['interval'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Interval'),
+    '#description' => t('Sets the amount of time in miliseconds the carousel waits before it automatically scrolls.'),
+    '#default_value' => 8000
+  );
+
+  $form['continuous'] = array(
+    '#type' => 'select',
+    '#title' => t('Continuous'),
+    '#description' => t('If set to true the carousel will continuously loop through its pages rather than scrolling all the way back to the first page.'),
+    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#default_value' => 1
+  );
+
+  $form['touch'] = array(
+    '#type' => 'select',
+    '#title' => t('Touch'),
+    '#description' => t('If set to true the carousel will become draggable allowing you to flick through pages.'),
+    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#default_value' => 1
+  );
+
+  $form['disabled'] = array(
+    '#type' => 'select',
+    '#title' => t('Disabled'),
+    '#description' => t('If set to true carousel will no longer change state.'),
+    '#options' => array(0 => FALSE, 1 => TRUE),
+    '#default_value' => 1
+  );
+
+  return $form;
+}
