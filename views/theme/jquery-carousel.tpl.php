@@ -7,5 +7,13 @@
  *
  * @ingroup views_templates
  */
-
 ?>
+<div class="rs-carousel">
+  <ul>
+    <?php foreach($rows as $row): ?>
+    <li>
+      <?php print $row;?>
+    </li>
+    <?php endforeach; ?>
+  </ul>
+</div>

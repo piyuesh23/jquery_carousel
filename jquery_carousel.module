@@ -20,17 +20,34 @@ function template_preprocess_jquery_carousel(&$vars) {
 function jquery_carousel_config_form() {
   $form = array();
 
-  $form['items_per_page'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Items per page'),
-    '#description' => t('Number of items to show on each page'),
-    '#default_value' => 1
-  );
-
-  $form['items_per_transition'] = array(
+  $form['itemsPerTransition'] = array(
     '#type' => 'textfield',
     '#title' => t('Items per transition'),
     '#description' => t('number of items moved with each transition'),
+    '#default_value' => 1
+  );
+
+  $form['orientation'] = array(
+    '#type' => 'select',
+    '#title' => t('Orientation'),
+    '#description' => t('Sets the orientation of the carousel, either horizontal or vertical.'),
+    '#options' => array('horizontal' => "Horizontal", 'vertical' => "Vertical"),
+    '#default_value' => 1
+  );
+
+  $form['loop'] = array(
+    '#type' => 'select',
+    '#title' => t('Loop'),
+    '#description' => t('If set to true carousel will loop back to first or last page accordingly.'),
+    '#options' => array(0 => "False", 1 => "True"),
+    '#default_value' => 1
+  );
+
+  $form['whitespace'] = array(
+    '#type' => 'select',
+    '#title' => t('Whitespace'),
+    '#description' => t('If set to true the carousel will allow whitespace to be seen when there aren\'t enough items to fill the last page.'),
+    '#options' => array(0 => "False", 1 => "True"),
     '#default_value' => 1
   );
 
@@ -41,7 +58,7 @@ function jquery_carousel_config_form() {
     '#default_value' => 1
   );
 
-  $form['next_prev_links'] = array(
+  $form['nextPrevActions'] = array(
     '#type' => 'select',
     '#title' => t('Number of Rows'),
     '#description' => t('whether next and prev links will be included'),
@@ -69,9 +86,17 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Easing'),
     '#description' => t('supports the jQuery easing plugin'),
-    '#options' => array(0 => "False", 1 => "True"),
-    '#default_value' => 1
+    '#options' => jquery_carousel_easing_options(),
+    '#default_value' => 'linear'
   );
+
+//  $form['fx'] = array(
+//    '#type' => 'select',
+//    '#title' => t('Easing'),
+//    '#description' => t('Effect for the slide'),
+//    '#options' => jquery_carousel_easing_options(),
+//    '#default_value' => ''
+//  );
 
   $form['autoScroll'] = array(
     '#type' => 'select',
@@ -113,4 +138,41 @@ function jquery_carousel_config_form() {
   );
 
   return $form;
+}
+
+function jquery_carousel_easing_options() {
+  return array(
+    'linear' => 'linear',
+    'swing' => 'swing',
+    'easeInQuad' => 'easeInQuad',
+    'easeOutQuad' => 'easeOutQuad',
+    'easeInOutQuad' => 'easeInOutQuad',
+    'easeInCubic' => 'easeInCubic',
+    'easeOutCubic' => 'easeOutCubic',
+    'easeInOutCubic' => 'easeInOutCubic',
+    'easeInQuart' => 'easeInQuart',
+    'easeOutQuart' => 'easeOutQuart',
+    'easeInOutQuart' => 'easeInOutQuart',
+    'easeInQuint' => 'easeInQuint',
+    'easeOutQuint' => 'easeOutQuint',
+    'easeInOutQuint' => 'easeInOutQuint',
+    'easeInExpo' => 'easeInExpo',
+    'easeOutExpo' => 'easeOutExpo',
+    'easeInOutExpo' => 'easeInOutExpo',
+    'easeInSine' => 'easeInSine',
+    'easeOutSine' => 'easeOutSine',
+    'easeInOutSine' => 'easeInOutSine',
+    'easeInCirc' => 'easeInCirc',
+    'easeOutCirc' => 'easeOutCirc',
+    'easeInOutCirc' => 'easeInOutCirc',
+    'easeInElastic' => 'easeInElastic',
+    'easeOutElastic' => 'easeOutElastic',
+    'easeInOutElastic' => 'easeInOutElastic',
+    'easeInBack' => 'easeInBack',
+    'easeOutBack' => 'easeOutBack',
+    'easeInOutBack' => 'easeInOutBack',
+    'easeInBounce' => 'easeInBounce',
+    'easeOutBounce' => 'easeOutBounce',
+    'easeInOutBounce' => 'easeInOutBounce'
+  );
 }
