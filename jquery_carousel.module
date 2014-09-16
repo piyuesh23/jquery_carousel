@@ -305,7 +305,7 @@ function _jquery_carousel_settings_format(&$settings) {
 }
 
 /**
- *
+ * Helper function to inject required Css & Js
  */
 function _jquery_carousel_include_css_js($settings) {
   drupal_add_library('system', 'ui.widget');
