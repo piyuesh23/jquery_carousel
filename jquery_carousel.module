@@ -23,8 +23,8 @@ function jquery_carousel_config_form() {
   $form['itemsPerTransition'] = array(
     '#type' => 'textfield',
     '#title' => t('Items per transition'),
-    '#description' => t('number of items moved with each transition'),
-    '#default_value' => 1
+    '#description' => t('number of items moved with each transition, default: auto'),
+    '#default_value' => 'auto'
   );
 
   $form['orientation'] = array(
@@ -82,25 +82,17 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Speed'),
     '#description' => t('Animation speed'),
-    '#options' => array(0 => "Normal", 1 => "Fast", 2 => "Slow"),
-    '#default_value' => 1
+    '#options' => array('normal' => "Normal", 'fast' => "Fast", 'slow' => "Slow"),
+    '#default_value' => 'normal'
   );
 
   $form['easing'] = array(
     '#type' => 'select',
     '#title' => t('Easing'),
     '#description' => t('supports the jQuery easing plugin'),
-    '#options' => jquery_carousel_easing_options(),
+    '#options' => array('linear' => 'Linear', 'swing' => 'Swing'),
     '#default_value' => 'linear'
   );
-
-//  $form['fx'] = array(
-//    '#type' => 'select',
-//    '#title' => t('Easing'),
-//    '#description' => t('Effect for the slide'),
-//    '#options' => jquery_carousel_easing_options(),
-//    '#default_value' => ''
-//  );
 
   $form['autoScroll'] = array(
     '#type' => 'select',
@@ -140,46 +132,9 @@ function jquery_carousel_config_form() {
     '#title' => t('Disabled'),
     '#description' => t('If set to true carousel will no longer change state.'),
     '#options' => array(0 => "False", 1 => "True"),
-    '#default_value' => FALSE,
+    '#default_value' => 0,
     '#boolean' => TRUE
   );
 
   return $form;
-}
-
-function jquery_carousel_easing_options() {
-  return array(
-    'linear' => 'linear',
-    'swing' => 'swing',
-    'easeInQuad' => 'easeInQuad',
-    'easeOutQuad' => 'easeOutQuad',
-    'easeInOutQuad' => 'easeInOutQuad',
-    'easeInCubic' => 'easeInCubic',
-    'easeOutCubic' => 'easeOutCubic',
-    'easeInOutCubic' => 'easeInOutCubic',
-    'easeInQuart' => 'easeInQuart',
-    'easeOutQuart' => 'easeOutQuart',
-    'easeInOutQuart' => 'easeInOutQuart',
-    'easeInQuint' => 'easeInQuint',
-    'easeOutQuint' => 'easeOutQuint',
-    'easeInOutQuint' => 'easeInOutQuint',
-    'easeInExpo' => 'easeInExpo',
-    'easeOutExpo' => 'easeOutExpo',
-    'easeInOutExpo' => 'easeInOutExpo',
-    'easeInSine' => 'easeInSine',
-    'easeOutSine' => 'easeOutSine',
-    'easeInOutSine' => 'easeInOutSine',
-    'easeInCirc' => 'easeInCirc',
-    'easeOutCirc' => 'easeOutCirc',
-    'easeInOutCirc' => 'easeInOutCirc',
-    'easeInElastic' => 'easeInElastic',
-    'easeOutElastic' => 'easeOutElastic',
-    'easeInOutElastic' => 'easeInOutElastic',
-    'easeInBack' => 'easeInBack',
-    'easeOutBack' => 'easeOutBack',
-    'easeInOutBack' => 'easeInOutBack',
-    'easeInBounce' => 'easeInBounce',
-    'easeOutBounce' => 'easeOutBounce',
-    'easeInOutBounce' => 'easeInOutBounce'
-  );
 }
