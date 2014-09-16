@@ -1,4 +1,9 @@
 <?php
+/**
+ * @file
+ * Provide jquery carousel style plugin for views
+ */
+
 
 // Trying to make sure the theme.inc get's loaded.
 include_once('views/theme/jquery_carousel.theme.inc');
@@ -62,7 +67,7 @@ function aria_custom_field_formatter_settings_form($field, $instance, $view_mode
   $settings = _jquery_carousel_formatter_defaults($display['settings']);
   $jquery_carousel_form = jquery_carousel_config_form();
 
-  foreach($jquery_carousel_form as $key => $form) {
+  foreach ($jquery_carousel_form as $key => $form) {
     $jquery_carousel_form[$key]['#default_value'] = isset($settings[$key]) ? $settings[$key] : $jquery_carousel_form[$key]['#default_value'];
   }
 

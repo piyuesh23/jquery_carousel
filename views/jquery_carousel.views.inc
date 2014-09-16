@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Defines the View Style Plugins for jQuery Carousel module.
+ */
 
 /**
  * Implements hook_views_plugins()

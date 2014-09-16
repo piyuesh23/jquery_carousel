@@ -23,7 +23,7 @@ class jquery_carousel_plugin_style_carousel extends views_plugin_style {
     $carousel_config_form = jquery_carousel_config_form();
     $form = array_merge($form, $carousel_config_form);
 
-    foreach($form as $key => $form_item) {
+    foreach ($form as $key => $form_item) {
       $form[$key]['#default_value'] = isset($this->options[$key]) ? $this->options[$key] : $form[$key]['#default_value'];
     }
   }

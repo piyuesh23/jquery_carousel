@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Theme & preprocess functions for the jQuery Carousel module.
+ */
 
 /**
  * @param $vars
@@ -14,7 +18,7 @@ function _jquery_carousel_preprocess_jquery_carousel(&$vars) {
   drupal_add_js(drupal_get_path('module', 'jquery_carousel') . '/js/jquery_carousel_init.js');
   $carousel_form = jquery_carousel_config_form();
 
-  foreach($vars['options'] as $key => $opt) {
+  foreach ($vars['options'] as $key => $opt) {
     if ((isset($carousel_form[$key]['#boolean'])) && ($carousel_form[$key]['#boolean'])) {
       $vars['options'][$key] = (bool)$vars['options'][$key];
     }
