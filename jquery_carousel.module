@@ -13,10 +13,128 @@ function jquery_carousel_views_api() {
   );
 }
 
+/**
+ * Implements hook_field_formatter_info().
+ */
+function jquery_carousel_field_formatter_info() {
+  return array(
+    // the key must be unique, so it's best to prefix with your module's name.
+    'jquery_carousel_images' => array(
+      // the label is is what is displayed in the select box in the UI.
+      'label' => t('jQuery Carousel'),
+      // field types is the important bit!! List the field types your formatter is for.
+      'field types' => array('image'),
+      // Settings form for jquery carousel formatter.
+      'settings'  => _jquery_carousel_formatter_defaults(),
+    ),
+  );
+}
+
+/**
+ * Formatter settings form.
+ */
+function _jquery_carousel_formatter_defaults($settings = array()) {
+  $settings +=
+    array(
+      'itemsPerTransition' => 'auto',
+      'orientation' => 'horizontal',
+      'loop' => FALSE,
+      'whitespace' => FALSE,
+      'nextPrevActions' => TRUE,
+      'pagination' => FALSE,
+      'speed' => 'normal',
+      'easing' => 'swing',
+      'autoScroll' => TRUE,
+      'interval' => 8000,
+      'continuous' => FALSE,
+      'touch' => TRUE,
+      'disabled' => FALSE
+    );
+
+  return $settings;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function aria_custom_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = _jquery_carousel_formatter_defaults($display['settings']);
+  $jquery_carousel_form = jquery_carousel_config_form();
+
+  foreach($jquery_carousel_form as $key => $form) {
+    $jquery_carousel_form[$key]['#default_value'] = isset($settings[$key]) ? $settings[$key] : $jquery_carousel_form[$key]['#default_value'];
+  }
+
+  return $jquery_carousel_form;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ *
+ * Returns a short summary for the current formatter settings of an instance.
+ * @TODO: return more info, like the Date module does.
+ */
+function aria_custom_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  $formatter = $display['type'];
+  $summary = array();
+
+  $summary[] = t('Displays multivalued image field content in form of a carousel.');
+
+  return implode('<br />', $summary);
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function jquery_carousel_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  if (!$items) {
+    return $element;
+  }
+
+  // Initialize formatter settings.
+  $settings = _jquery_carousel_formatter_defaults($display['settings']);
+
+  // Theme the result
+  $element[] = array(
+    '#markup' => theme(
+      'jquery_carousel_field_formatter',
+      array(
+        'element'  => $items,
+        'display'  => $display,
+        'settings' => $settings,
+      )
+    ),
+  );
+  return $element;
+}
+
+/**
+ * Implements hook_theme()
+ */
+function jquery_carousel_theme() {
+  return array(
+    'jquery_carousel_field_formatter' => array()
+  );
+}
+/**
+ * Template preprocessor for jquery carousel views style plugin.
+ *
+ * @param $vars
+ */
 function template_preprocess_jquery_carousel(&$vars) {
   _jquery_carousel_preprocess_jquery_carousel($vars);
 }
 
+/**
+ * Helper function to create config form
+ * Same form can be used for views style plugin & field formatter
+ *
+ * @return array
+ */
 function jquery_carousel_config_form() {
   $form = array();
 
@@ -51,13 +169,6 @@ function jquery_carousel_config_form() {
     '#options' => array(0 => "False", 1 => "True"),
     '#default_value' => 1,
     '#boolean' => TRUE
-  );
-
-  $form['num_rows'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Number of Rows'),
-    '#description' => t('Number of rows for the carousel'),
-    '#default_value' => 1
   );
 
   $form['nextPrevActions'] = array(

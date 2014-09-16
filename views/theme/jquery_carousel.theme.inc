@@ -6,6 +6,7 @@
 function _jquery_carousel_preprocess_jquery_carousel(&$vars) {
   drupal_add_library('system', 'ui.widget');
   drupal_add_css(libraries_get_path('jquery-ui-carousel') . '/dist/css/jquery.rs.carousel.css');
+  drupal_add_css(drupal_get_path('module', 'jquery_carousel') . '/css/jquery_carousel.css');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel.js');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-autoscroll.js');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-continuous.js');
