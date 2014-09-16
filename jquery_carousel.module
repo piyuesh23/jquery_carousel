@@ -41,6 +41,7 @@ function jquery_carousel_field_formatter_info() {
 function _jquery_carousel_formatter_defaults($settings = array()) {
   $settings +=
     array(
+      'style_name' => 'thumbnail',
       'itemsPerTransition' => 'auto',
       'orientation' => 'horizontal',
       'loop' => FALSE,
@@ -53,7 +54,6 @@ function _jquery_carousel_formatter_defaults($settings = array()) {
       'interval' => 8000,
       'continuous' => FALSE,
       'touch' => TRUE,
-      'disabled' => FALSE
     );
 
   return $settings;
@@ -62,10 +62,19 @@ function _jquery_carousel_formatter_defaults($settings = array()) {
 /**
  * Implements hook_field_formatter_settings_form().
  */
-function aria_custom_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+function jquery_carousel_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
   $display = $instance['display'][$view_mode];
   $settings = _jquery_carousel_formatter_defaults($display['settings']);
+
   $jquery_carousel_form = jquery_carousel_config_form();
+  $jquery_carousel_form['style_name'] = array(
+    '#type' => 'select',
+    '#title' => t('Image Style'),
+    '#description' => t('Select the image style to be associated.'),
+    '#options' => image_style_options(),
+    '#weight' => -1,
+    '#default_value' => ''
+  );
 
   foreach ($jquery_carousel_form as $key => $form) {
     $jquery_carousel_form[$key]['#default_value'] = isset($settings[$key]) ? $settings[$key] : $jquery_carousel_form[$key]['#default_value'];
@@ -80,7 +89,7 @@ function aria_custom_field_formatter_settings_form($field, $instance, $view_mode
  * Returns a short summary for the current formatter settings of an instance.
  * @TODO: return more info, like the Date module does.
  */
-function aria_custom_field_formatter_settings_summary($field, $instance, $view_mode) {
+function jquery_carousel_field_formatter_settings_summary($field, $instance, $view_mode) {
   $display = $instance['display'][$view_mode];
   $settings = $display['settings'];
   $formatter = $display['type'];
@@ -122,8 +131,39 @@ function jquery_carousel_field_formatter_view($entity_type, $entity, $field, $in
  */
 function jquery_carousel_theme() {
   return array(
-    'jquery_carousel_field_formatter' => array()
+    'jquery_carousel_field_formatter' => array(
+      'element' => array(),
+      'display' => '',
+      'settings' => array()
+    )
   );
+}
+
+/**
+ * Theme callback for jQeury carousel field formatter
+ */
+function theme_jquery_carousel_field_formatter($vars) {
+  _jquery_carousel_settings_format($vars['settings']);
+  _jquery_carousel_include_css_js($vars['settings']);
+
+  $output = '';
+
+  if (is_array($vars['element']) && (count($vars['element']) > 1)) {
+    $output .= '<div class="rs-carousel">';
+    $output .= '<ul>';
+    foreach($vars['element'] as $key => $elem) {
+      $output .= '<li>';
+      $output .= theme('image_style', array('path' => $elem['uri'], 'style_name' => $vars['settings']['style_name']));
+      $output .= '</li>';
+    }
+    $output .= '</ul>';
+    $output .= '</div>';
+  }
+  else {
+    $output .= theme('image_style', array('path' => $vars['element'][0]['uri'], 'style_name' => $vars['settings']['style_name']));
+  }
+
+  return $output;
 }
 /**
  * Template preprocessor for jquery carousel views style plugin.
@@ -240,17 +280,41 @@ function jquery_carousel_config_form() {
     '#title' => t('Touch'),
     '#description' => t('If set to true the carousel will become draggable allowing you to flick through pages.'),
     '#options' => array(0 => "False", 1 => "True"),
-    '#default_value' => 1
-  );
-
-  $form['disabled'] = array(
-    '#type' => 'select',
-    '#title' => t('Disabled'),
-    '#description' => t('If set to true carousel will no longer change state.'),
-    '#options' => array(0 => "False", 1 => "True"),
-    '#default_value' => 0,
+    '#default_value' => 1,
     '#boolean' => TRUE
   );
 
   return $form;
+}
+
+/**
+ * Helper function to prepare the settings to be exposed in JS
+ *
+ * Helps convert boolean 1s & 0s into boolean strings
+ *
+ * @param $settings
+ */
+function _jquery_carousel_settings_format(&$settings) {
+  $carousel_form = jquery_carousel_config_form();
+
+  foreach ($settings as $key => $opt) {
+    if ((isset($carousel_form[$key]['#boolean'])) && ($carousel_form[$key]['#boolean'])) {
+      $settings[$key] = (bool)$settings[$key];
+    }
+  }
+}
+
+/**
+ *
+ */
+function _jquery_carousel_include_css_js($settings) {
+  drupal_add_library('system', 'ui.widget');
+  drupal_add_css(libraries_get_path('jquery-ui-carousel') . '/dist/css/jquery.rs.carousel.css');
+  drupal_add_css(drupal_get_path('module', 'jquery_carousel') . '/css/jquery_carousel.css');
+  drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel.js');
+  drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-autoscroll.js');
+  drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-continuous.js');
+  drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-touch.js');
+  drupal_add_js(drupal_get_path('module', 'jquery_carousel') . '/js/jquery_carousel_init.js');
+  drupal_add_js(array('jquery_carousel' => $settings), 'setting');
 }
