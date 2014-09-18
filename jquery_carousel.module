@@ -41,6 +41,8 @@ function jquery_carousel_field_formatter_info() {
 function _jquery_carousel_formatter_defaults($settings = array()) {
   $settings +=
     array(
+      'theme' => 'default',
+      'selector' => 'rs-carousel',
       'style_name' => 'thumbnail',
       'itemsPerTransition' => 'auto',
       'orientation' => 'horizontal',
@@ -149,7 +151,7 @@ function theme_jquery_carousel_field_formatter($vars) {
   $output = '';
 
   if (is_array($vars['element']) && (count($vars['element']) > 1)) {
-    $output .= '<div class="rs-carousel">';
+    $output .= '<div class="rs-carousel ' . $vars['settings']['selector'] . '">';
     $output .= '<ul>';
     foreach($vars['element'] as $key => $elem) {
       $output .= '<li>';
@@ -182,6 +184,27 @@ function template_preprocess_jquery_carousel(&$vars) {
  */
 function jquery_carousel_config_form() {
   $form = array();
+  $theme = array();
+  foreach (jquery_carousel_themes() as $key => $theme) {
+    $themes[$key] = $theme['title'];
+  }
+
+  $themes[''] = t('None');
+  $form['theme'] = array(
+    '#type' => 'select',
+    '#title' => t('jQuery Carousel Theme'),
+    '#description' => t('Select the theme to be applied to the carousel'),
+    '#options' => $themes,
+    '#default_value' => ''
+  );
+
+  $form['selector'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Selector for this carousel configuration'),
+    '#description' => t('The carousel will be wrpped in this class & JS with the config below gets applied to this selector'),
+    '#required' => TRUE,
+    '#default_value' => ''
+  );
 
   $form['itemsPerTransition'] = array(
     '#type' => 'textfield',
@@ -308,13 +331,62 @@ function _jquery_carousel_settings_format(&$settings) {
  * Helper function to inject required Css & Js
  */
 function _jquery_carousel_include_css_js($settings) {
+  $themes = jquery_carousel_themes();
   drupal_add_library('system', 'ui.widget');
+  if (isset($settings['theme']) && ($settings['theme'])) {
+    drupal_add_css(drupal_get_path('module', $themes[$settings['theme']]['module']) . '/' . $themes[$settings['theme']]['file']);
+  }
   drupal_add_css(libraries_get_path('jquery-ui-carousel') . '/dist/css/jquery.rs.carousel.css');
-  drupal_add_css(drupal_get_path('module', 'jquery_carousel') . '/css/jquery_carousel.css');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel.js');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-autoscroll.js');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-continuous.js');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-touch.js');
   drupal_add_js(drupal_get_path('module', 'jquery_carousel') . '/js/jquery_carousel_init.js');
-  drupal_add_js(array('jquery_carousel' => $settings), 'setting');
+  drupal_add_js(array('jquery_carousel' => array($settings['selector'] => $settings)), 'setting');
+
+}
+
+/**
+ * Implements hook_carousel_theme_info().
+ */
+function jquery_carousel_carousel_theme_info() {
+  $themes = array();
+
+  $themes['default'] = array(
+    'title' => t('Default'),
+    'file' => 'jcarousel-themes/default/jquery-carousel-default.css'
+  );
+  $themes['glass'] = array(
+    'title' => t('Glass'),
+    'file' => 'jcarousel-themes/glass/jquery-carousel-glass.css'
+  );
+
+  return $themes;
+}
+
+/**
+ * Retrieves a list of all available jQuery Carousel themes.
+ */
+function jquery_carousel_themes() {
+  static $themes;
+
+  // Don't rebuild if we already have a list of themes.
+  if (isset($themes)) {
+    return $themes;
+  }
+
+  // Build a list of themes from other modules.
+  $themes = array();
+  foreach (module_implements('carousel_theme_info') as $module) {
+    $function = $module . '_carousel_theme_info';
+    $module_themes = $function();
+    foreach ($module_themes as $key => $theme) {
+      $theme['module'] = $module;
+      $theme['file path'] = isset($theme['file path']) ? $theme['file path'] : drupal_get_path('module', $module);
+      $theme['title'] = isset($theme['title']) ? $theme['title'] : $key;
+      $themes[$key] = $theme;
+    }
+  }
+  ksort($themes);
+  return $themes;
 }
