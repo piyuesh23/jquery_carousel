@@ -2,5 +2,7 @@ name = jquery carousel
 version = 7.x-1.0
 core = 7.x
 
+dependencies[] = libraries
+
 files[] = views/jquery_carousel.views.inc
 files[] = views/plugins/jquery_carousel_plugin_style_carousel.inc

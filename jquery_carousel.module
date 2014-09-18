@@ -6,7 +6,42 @@
 
 
 // Trying to make sure the theme.inc get's loaded.
-include_once('views/theme/jquery_carousel.theme.inc');
+include_once 'views/theme/jquery_carousel.theme.inc';
+
+/**
+ * Implements hook_help()
+ */
+function jquery_carousel_help($path, $arg) {
+  $help_text = '';
+  switch ($path) {
+    case 'admin/help#jquery_carousel':
+      $help_text = '<p>' . t('jQuery carousel is based on the jquery plugin http://github.com/richardscarrott/jquery-ui-carousel. It allows developers to create carousels using the data entered through the content types.') . '</p>';
+      $help_text .= '<p>' . t('For more details, check the documentation on the project page(https://www.drupal.org/sandbox/piyuesh23/2336009)') . '</p>';
+      $help_text .= '<p>' . t('Demo available at http://jcarousel.qed42.webfactional.com');
+      break;
+  }
+  return $help_text;
+}
+
+/**
+ * Implements hook_requirements()
+ */
+function jquery_carousel_requirements($phase) {
+  $requirements = array();
+
+  if ($phase == 'runtime') {
+    if (!libraries_get_path('jquery-ui-carousel')) {
+      $requirements['jquery_carousel_library'] = array(
+        'title' => t('jQuery Carousel Library'),
+        'description' => t('jQuery Carousel library should be avaialble at sites/all/libraries/jquery-ui-carousel. Can be downloaded form http://github.com/richardscarrott/jquery-ui-carousel'),
+        'severity' => REQUIREMENT_ERROR,
+        'weight' => -1000,
+      );
+    }
+  }
+
+  return $requirements;
+}
 
 /**
  * Implements hook_views_api().
@@ -341,7 +376,7 @@ function _jquery_carousel_include_css_js($settings) {
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-autoscroll.js');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-continuous.js');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-touch.js');
-  drupal_add_js(drupal_get_path('module', 'jquery_carousel') . '/js/jquery_carousel_init.js');
+  drupal_add_js(drupal_get_path('module', 'jquery_carousel') . '/js/jquery_carousel.init.js');
   drupal_add_js(array('jquery_carousel' => array($settings['selector'] => $settings)), 'setting');
 
 }
