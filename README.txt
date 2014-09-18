@@ -37,7 +37,8 @@ Features:
   4. Configurable vertical & Horizontal carousels.
   5. Touch support for mobile devices
   6. Can easily place multiple carousels with different configurations on a
-     single page. Carousel configurations are tied up with carousels & not the page.
+     single page. Carousel configurations are tied up with carousels
+     and not the page.
 
 Requirements:
   This module depends on jquery ui carousel
