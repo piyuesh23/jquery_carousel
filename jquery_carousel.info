@@ -6,4 +6,4 @@ core = 7.x
 dependencies[] = libraries
 
 files[] = views/jquery_carousel.views.inc
-files[] = views/plugins/jquery_carousel_plugin_style_carousel.inc
+files[] = views/plugins/jqueryCarouselPluginStyleCarousel.inc
