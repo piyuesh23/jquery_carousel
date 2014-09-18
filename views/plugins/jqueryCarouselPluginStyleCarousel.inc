@@ -10,7 +10,7 @@
  *
  * @ingroup views_style_plugins
  */
-class jqueryCarouselPluginStyleCarousel extends views_plugin_style {
+class JqueryCarouselPluginStyleCarousel extends views_plugin_style {
 
   /**
    * Set default options.

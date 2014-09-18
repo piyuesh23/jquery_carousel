@@ -13,9 +13,9 @@
 }
 
 .rs-carousel .rs-carousel-mask {
-  position:relative;
-  overflow:hidden;
-  border:6px solid #444;
+  position: relative;
+  overflow: hidden;
+  border: 6px solid #444;
 }
 
 .rs-carousel .rs-carousel-runner {
@@ -113,7 +113,7 @@
 
 /** items per page **/
 #my-carousel-1.rs-carousel-vertical.rs-carousel-items-1 .rs-carousel-mask {
-  height: 150px
+  height: 150px;
 }
 
 #my-carousel-1.rs-carousel-vertical.rs-carousel-items-2 .rs-carousel-mask {
@@ -129,25 +129,25 @@
 }
 
 .color-1 {
-  background:#007cd2;
+  background: #007cd2;
 }
 .color-2 {
-  background:#1788D7;
+  background: #1788d7;
 }
 .color-3 {
-  background:#3798db;
+  background: #3798db;
 }
 .color-4 {
-  background:#62acdf;
+  background: #62acdf;
 }
 .color-5 {
-  background:#86bbe0;
+  background: #86bbe0;
 }
 .color-6 {
-  background:#a7c7de;
+  background: #a7c7de;
 }
 .color-7 {
-  background:#d5dbdf;
+  background: #d5dbdf;
 }
 
 .rs-carousel-cloned {

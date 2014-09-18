@@ -4,7 +4,6 @@
  * Provide jquery carousel style plugin for views.
  */
 
-
 // Trying to make sure the theme.inc get's loaded.
 include_once 'views/theme/jquery_carousel.theme.inc';
 
@@ -241,7 +240,7 @@ function jquery_carousel_config_form() {
     '#type' => 'select',
     '#title' => t('Whitespace'),
     '#description' => t("If set to true the carousel will allow whitespace to be seen when there aren't enough items to fill the last page."),
-    '#options' => array(0 => t(t("False")), 1 => t("True")),
+    '#options' => array(0 => t("False"), 1 => t("True")),
     '#default_value' => 1,
     '#boolean' => TRUE,
   );
