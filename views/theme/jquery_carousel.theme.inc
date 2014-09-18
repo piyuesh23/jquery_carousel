@@ -5,7 +5,7 @@
  */
 
 /**
- * @param $vars
+ * Preprocessor for jquery carousel view style plugin.
  */
 function _jquery_carousel_preprocess_jquery_carousel(&$vars) {
   _jquery_carousel_settings_format($vars['options']);
