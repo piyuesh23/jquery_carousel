@@ -1,7 +1,14 @@
 jQuery carousel is based on the jquery plugin http://github.com/richardscarrott/jquery-ui-carousel.
-It allows developers to create carousels using the data entered through the content types.
+It allows developers to create carousels using the data entered through the content types. The carousels
+could be vertical or Horizontal depending on the configurations. These carousels can be configured for
+"swipe to slide" on mobile devices as well. Also, the module allows us to have "multiple carousels" with
+different configurations on a single page as it ties up the config for a carousel to its instance only
+rather than having it as a global config for the page.
 
-What this module Provides:
+Demo:
+  http://jcarousel.qed42.webfactional.com/jquery-carousel-demo
+
+Features:
   1. Views style Plugin: This module provides a views style plugin to display the view-rows in the
   form of a carousel.
 
@@ -25,6 +32,10 @@ What this module Provides:
       return $themes;
     }
 
+  4. Configurable vertical & Horizontal carousels.
+  5. Touch support for mobile devices
+  6. Can easily place multiple carousels with different configurations on a single page.
+     Carousel configurations are tied up with carousels & not the page.
 
 Requirements:
   This module depends on jquery ui carousel library(http://github.com/richardscarrott/jquery-ui-carousel).
@@ -56,6 +67,6 @@ Usage:
 
   NOTE:
      a. Module ships with only one default theme named as default. You can create as many themes as
-     needed using the hook explained under What this module Provides#3.
+     needed using the hook explained under Features#3.
      b. You must add a selector value in the selector field coming up in settings form. This is the
      class that the carousel's markup gets wrapped with & the configs done get applied to.
