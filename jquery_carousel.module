@@ -189,8 +189,8 @@ function template_preprocess_jquery_carousel(&$vars) {
  * Helper function to create config form. Reusable for field formatter & views.
  */
 function jquery_carousel_config_form() {
-  $form = array();
-  $themes = array();
+  $form = $theme = array();
+
   foreach (jquery_carousel_themes() as $key => $theme) {
     $themes[$key] = $theme['title'];
   }

@@ -1,6 +1,5 @@
 name = jquery carousel
 description = Formats data in form of a carousel.
-version = 7.x-1.0
 core = 7.x
 
 dependencies[] = libraries
