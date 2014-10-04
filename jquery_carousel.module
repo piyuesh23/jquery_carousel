@@ -162,7 +162,8 @@ function theme_jquery_carousel_field_formatter($vars) {
   $output = '';
 
   if (is_array($vars['element']) && (count($vars['element']) > 1)) {
-    $output .= '<div class="rs-carousel ' . $vars['settings']['selector'] . '">';
+    $selector_class = drupal_attributes(array('class' => $vars['settings']['selector']));
+    $output .= '<div ' . $selector_class . '">';
     $output .= '<ul>';
     foreach ($vars['element'] as $elem) {
       $output .= '<li>';
