@@ -8,7 +8,7 @@
  * @ingroup views_templates
  */
 ?>
-<div class="rs-carousel <?php print $options['selector'];?>">
+<div <?php print $selector_class;?> >
   <ul>
     <?php foreach($rows as $row): ?>
     <li>
