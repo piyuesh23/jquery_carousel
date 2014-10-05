@@ -379,7 +379,7 @@ function jquery_carousel_carousel_theme_info() {
  * Retrieves a list of all available jQuery Carousel themes.
  */
 function jquery_carousel_themes() {
-  static $themes;
+  $themes = &drupal_static(__FUNCTION__);
 
   // Don't rebuild if we already have a list of themes.
   if (isset($themes)) {
