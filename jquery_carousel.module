@@ -210,7 +210,7 @@ function jquery_carousel_config_form() {
   $form['selector'] = array(
     '#type' => 'textfield',
     '#title' => t('Selector for this carousel configuration'),
-    '#description' => t('The carousel will be wrpped in this class & JS with the config below gets applied to this selector'),
+    '#description' => t('The carousel will be wrapped in this class & JS with the config below gets applied to this selector. Please make sure the selector contains only alphabets. No special characters or spaces allowed.'),
     '#required' => TRUE,
     '#default_value' => '',
   );
