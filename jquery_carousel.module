@@ -126,12 +126,6 @@ function jquery_carousel_field_formatter_view($entity_type, $entity, $field, $in
   $settings = _jquery_carousel_formatter_defaults($display['settings']);
 
   // Theme the result.
-  // $element[] = array(
-  //   '#element'  => $items,
-  //   '#display'  => $display,
-  //   '#settings' => $settings,
-  //   '#theme' => 'jquery_carousel_field_formatter',
-  // );
   $element[] = array(
     '#markup' => theme(
       'jquery_carousel_field_formatter',
@@ -140,7 +134,7 @@ function jquery_carousel_field_formatter_view($entity_type, $entity, $field, $in
         'display'  => $display,
         'settings' => $settings,
       )
-    )
+    ),
   );
 
   return $element;
