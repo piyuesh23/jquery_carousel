@@ -346,15 +346,17 @@ function _jquery_carousel_include_css_js($settings) {
   if (isset($settings['theme']) && ($settings['theme'])) {
     drupal_add_css(drupal_get_path('module', $themes[$settings['theme']]['module']) . '/' . $themes[$settings['theme']]['file']);
   }
-  if (isset($settings['touch']) && ($settings['touch'])) {
-    drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/vendor/jquery.event.drag.js');
-  }
+
   drupal_add_css(libraries_get_path('jquery-ui-carousel') . '/dist/css/jquery.rs.carousel.css');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel.js');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-autoscroll.js');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-continuous.js');
   drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/dist/js/jquery.rs.carousel-touch.js');
   drupal_add_js(drupal_get_path('module', 'jquery_carousel') . '/js/jquery_carousel.init.js');
+
+  if (isset($settings['touch']) && ($settings['touch'])) {
+    drupal_add_js(libraries_get_path('jquery-ui-carousel') . '/vendor/jquery.event.drag.js');
+  }
   drupal_add_js(array('jquery_carousel' => array($settings['selector'] => $settings)), 'setting');
 
 }
