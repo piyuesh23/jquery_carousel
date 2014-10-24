@@ -92,6 +92,7 @@ function jquery_carousel_field_formatter_settings_form($field, $instance, $view_
     '#weight' => -1,
     '#default_value' => '',
   );
+  $jquery_carousel_form['selector']['#element_validate'] = array('jquery_carousel_config_form_validate');
 
   foreach ($jquery_carousel_form as $key => $form) {
     $jquery_carousel_form[$key]['#default_value'] = isset($settings[$key]) ? $settings[$key] : $jquery_carousel_form[$key]['#default_value'];
@@ -100,6 +101,26 @@ function jquery_carousel_field_formatter_settings_form($field, $instance, $view_
   return $jquery_carousel_form;
 }
 
+/**
+ * Element validator for selector field
+ */
+function jquery_carousel_config_form_validate($element, &$form_state, $form) {
+  _jquery_carousel_config_validate($element, $selector);
+}
+
+/**
+ * Validation logic for carousel config
+ */
+function _jquery_carousel_config_validate($element, $selector) {
+  preg_match('/[a-zA-Z|-]*/', $selector, $matches);
+
+  if ((count($matches) === 1) && ($matches[0] === $selector)) {
+    // Validation passes since the text entered doesn't contain any special characters.
+  }
+  else {
+    form_set_error($element, t("Selector should any special characters or spaces. Only special character allowed is '-'"));
+  }
+}
 /**
  * Implements hook_field_formatter_settings_summary().
  *
