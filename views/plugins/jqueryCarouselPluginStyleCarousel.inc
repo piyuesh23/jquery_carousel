@@ -37,13 +37,6 @@ class JqueryCarouselPluginStyleCarousel extends views_plugin_style {
    */
   public function options_validate(&$form, &$form_state) {
     $selector = $form_state['input']['style_options']['selector'];
-    preg_match('/[a-zA-Z]*/', $selector, $matches);
-
-    if ((count($matches) === 1) && ($matches[0] === $selector)) {
-      // Validation passes since the text entered doesn't contain any special characters.
-    }
-    else {
-      form_set_error('options][selector', t('Plese enter string without any special characters or spaces.'));
-    }
+    _jquery_carousel_config_validate('options][selector', $selector);
   }
 }
