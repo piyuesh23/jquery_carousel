@@ -113,13 +113,17 @@ function jquery_carousel_config_form_validate($element, &$form_state, $form) {
 /**
  * Validation logic for carousel config
  */
-function _jquery_carousel_config_validate($element, $selector) {
+function _jquery_carousel_config_validate($element, $selector, $type = 'element') {
   preg_match('/[a-zA-Z|-]*/', $selector, $matches);
   if ((count($matches) === 1) && ($matches[0] === $selector)) {
-
   }
   else {
-    form_error($element, t("Selector should any special characters or spaces. Only special character allowed is '-'"));
+    if($type == 'view') {
+      form_set_error($element, t("Selector should any special characters or spaces. Only special character allowed is '-'"));
+    }
+    else {
+      form_error($element, t("Selector should any special characters or spaces. Only special character allowed is '-'"));
+    }
   }
 }
 /**

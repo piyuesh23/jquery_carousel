@@ -28,7 +28,9 @@ class JqueryCarouselPluginStyleCarousel extends views_plugin_style {
     $form = array_merge($form, $carousel_config_form);
 
     foreach (array_keys($form) as $key) {
-      $form[$key]['#default_value'] = isset($this->options[$key]) ? $this->options[$key] : $form[$key]['#default_value'];
+      if (isset($form[$key]) && is_array($form[$key])) {
+        $form[$key]['#default_value'] = 'test';
+      }
     }
   }
 
@@ -37,6 +39,6 @@ class JqueryCarouselPluginStyleCarousel extends views_plugin_style {
    */
   public function options_validate(&$form, &$form_state) {
     $selector = $form_state['input']['style_options']['selector'];
-    _jquery_carousel_config_validate('options][selector', $selector);
+    _jquery_carousel_config_validate('options][selector', $selector, 'view');
   }
 }
