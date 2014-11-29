@@ -27,16 +27,6 @@ function jquery_carousel_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_views_api().
- */
-function jquery_carousel_views_api() {
-  return array(
-    'api' => '3',
-    'path' => drupal_get_path('module', 'jquery_carousel') . '/views',
-  );
-}
-
-/**
  * Implements hook_field_formatter_info().
  */
 function jquery_carousel_field_formatter_info() {
