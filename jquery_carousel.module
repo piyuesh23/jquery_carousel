@@ -5,6 +5,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Template\Attribute;
 
 // Trying to make sure the theme.inc get's loaded.
 include_once 'views/theme/jquery_carousel.theme.inc';
@@ -188,7 +189,7 @@ function theme_jquery_carousel_field_formatter($vars) {
   $output = '';
 
   if (is_array($vars['element']) && (count($vars['element']) > 1)) {
-    $selector_class = drupal_attributes(array('class' => $vars['settings']['selector']));
+	  $selector_class = new Attribute(array('class' => $vars['settings']['selector']));
     $output .= '<div ' . $selector_class . '">';
     $output .= '<ul>';
     foreach ($vars['element'] as $elem) {
@@ -205,11 +206,28 @@ function theme_jquery_carousel_field_formatter($vars) {
 
   return $output;
 }
+
 /**
- * Template preprocessor for jquery carousel views style plugin.
+ * Prepares variables for views jquery_carousel templates.
+ *
+ * Default template: views-view-jquery_carousel.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - view: A ViewExecutable object.
+ *   - rows: The raw row data.
  */
 function template_preprocess_jquery_carousel(&$vars) {
-  _jquery_carousel_preprocess_jquery_carousel($vars);
+
+//	@TODO Remove this function from module later.
+//	  _jquery_carousel_preprocess_jquery_carousel($vars);
+	_jquery_carousel_settings_format($vars['options']);
+	_jquery_carousel_include_css_js($vars['options']);
+	$vars['selector_class'] = new Attribute(
+		array(
+			'class' => array($vars['options']['selector']),
+		)
+	);
 }
 
 /**
@@ -415,7 +433,7 @@ function jquery_carousel_themes() {
 
   // Build a list of themes from other modules.
   $themes = array();
-  foreach (module_implements('carousel_theme_info') as $module) {
+  foreach (\Drupal::moduleHandler()->getImplementations('carousel_theme_info') as $module) {
     $function = $module . '_carousel_theme_info';
     $module_themes = $function();
     foreach ($module_themes as $key => $theme) {

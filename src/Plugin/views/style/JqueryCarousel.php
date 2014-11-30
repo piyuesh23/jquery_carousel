@@ -17,20 +17,34 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
  *
  * @ViewsStyle(
  *   id = "jquery_carousel",
- *   title = @Translation("jQuery Carousel plugin"),
+ *   title = @Translation("jQuery Carousel"),
  *   help = @Translation("Display the results as a jquery Carousel."),
  *   theme = "views_view_jquery_carousel",
  *   display_types = {"normal"}
  * )
  */
 class JqueryCarousel extends StylePluginBase {
-	
+
 	/**
 	 * Does the style plugin allows to use style plugins.
 	 *
 	 * @var bool
 	 */
 	protected $usesRowPlugin = TRUE;
+
+	/**
+	 * Does the style plugin support custom css class for the rows.
+	 *
+	 * @var bool
+	 */
+	protected $usesRowClass = TRUE;
+
+	/**
+	 * Does the style plugin support grouping of rows.
+	 *
+	 * @var bool
+	 */
+	protected $usesGrouping = FALSE;
 
   /**
    * {@inheritdoc}
