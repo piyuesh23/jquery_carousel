@@ -1,0 +1,7 @@
+drupal.jquery_carousel:
+  version: 8.x-1.x
+  js:
+    js/jquery_carousel.init.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
