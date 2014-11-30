@@ -219,8 +219,6 @@ function theme_jquery_carousel_field_formatter($vars) {
  */
 function template_preprocess_jquery_carousel(&$vars) {
 
-//	@TODO Remove this function from module later.
-//	  _jquery_carousel_preprocess_jquery_carousel($vars);
 	_jquery_carousel_settings_format($vars['options']);
 	_jquery_carousel_include_css_js($vars['options']);
 	$vars['selector_class'] = new Attribute(
