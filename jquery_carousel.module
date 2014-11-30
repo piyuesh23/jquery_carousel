@@ -108,17 +108,21 @@ function jquery_carousel_config_form_validate($element, &$form_state, $form) {
  * Validation logic for carousel config
  */
 function _jquery_carousel_config_validate($element, $selector, $type = 'element') {
-  preg_match('/[a-zA-Z|-]*/', $selector, $matches);
+  $error = FALSE;
+	preg_match('/[a-zA-Z|-]*/', $selector, $matches);
   if ((count($matches) === 1) && ($matches[0] === $selector)) {
   }
   else {
-    if($type == 'view') {
-      form_set_error($element, t("Selector should any special characters or spaces. Only special character allowed is '-'"));
-    }
-    else {
-      form_error($element, t("Selector should any special characters or spaces. Only special character allowed is '-'"));
-    }
+		$error = TRUE;
+//	@TODO Need to handle the same in the case of field formatter.
+//    if($type == 'view') {
+//      form_set_error($element, t("Selector should any special characters or spaces. Only special character allowed is '-'"));
+//    }
+//    else {
+//      form_error($element, t("Selector should any special characters or spaces. Only special character allowed is '-'"));
+//    }
   }
+	return $error;
 }
 /**
  * Implements hook_field_formatter_settings_summary().
@@ -213,7 +217,6 @@ function template_preprocess_jquery_carousel(&$vars) {
  */
 function jquery_carousel_config_form() {
   $form = $themes = array();
-
   foreach (jquery_carousel_themes() as $key => $theme) {
     $themes[$key] = $theme['title'];
   }
@@ -232,7 +235,7 @@ function jquery_carousel_config_form() {
     '#title' => t('Selector for this carousel configuration'),
     '#description' => t('The carousel will be wrapped in this class & JS with the config below gets applied to this selector. Please make sure the selector contains only alphabets. No special characters or spaces allowed.'),
     '#required' => TRUE,
-    '#default_value' => '',
+    '#default_value' => 'test',
   );
 
   $form['itemsPerTransition'] = array(
@@ -318,7 +321,7 @@ function jquery_carousel_config_form() {
   $form['interval'] = array(
     '#type' => 'textfield',
     '#title' => t('Interval'),
-    '#description' => t('Sets the amount of time in miliseconds the carousel waits before it automatically scrolls.'),
+    '#description' => t('Sets the amount of time in milliseconds the carousel waits before it automatically scrolls.'),
     '#default_value' => 8000,
   );
 
