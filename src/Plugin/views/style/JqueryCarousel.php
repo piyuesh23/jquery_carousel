@@ -24,6 +24,13 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
  * )
  */
 class JqueryCarousel extends StylePluginBase {
+	
+	/**
+	 * Does the style plugin allows to use style plugins.
+	 *
+	 * @var bool
+	 */
+	protected $usesRowPlugin = TRUE;
 
   /**
    * {@inheritdoc}
