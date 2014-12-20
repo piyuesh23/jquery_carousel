@@ -17,7 +17,7 @@ class JqueryCarouselPluginStyleCarousel extends views_plugin_style {
    */
   public function option_definition() {
     $options = parent::option_definition();
-    $options['selector'] = array('default' => 'test');
+    $options['selector'] = array('default' => 'rs-carousel');
     return $options;
   }
 
