@@ -17,6 +17,7 @@ class JqueryCarouselPluginStyleCarousel extends views_plugin_style {
    */
   public function option_definition() {
     $options = parent::option_definition();
+    $options['selector'] = array('default' => 'test');
     return $options;
   }
 
@@ -29,7 +30,7 @@ class JqueryCarouselPluginStyleCarousel extends views_plugin_style {
 
     foreach (array_keys($form) as $key) {
       if (isset($form[$key]) && is_array($form[$key])) {
-        $form[$key]['#default_value'] = 'test';
+        $form[$key]['#default_value'] = $this->options[$key];
       }
     }
   }

@@ -125,6 +125,7 @@ function _jquery_carousel_config_validate($element, $selector, $type = 'element'
     }
   }
 }
+
 /**
  * Implements hook_field_formatter_settings_summary().
  *
@@ -237,7 +238,6 @@ function jquery_carousel_config_form() {
     '#title' => t('Selector for this carousel configuration'),
     '#description' => t('The carousel will be wrapped in this class & JS with the config below gets applied to this selector. Please make sure the selector contains only alphabets. No special characters or spaces allowed.'),
     '#required' => TRUE,
-    '#default_value' => '',
   );
 
   $form['itemsPerTransition'] = array(
