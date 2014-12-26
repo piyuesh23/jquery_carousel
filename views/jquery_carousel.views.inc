@@ -11,7 +11,7 @@ function jquery_carousel_views_plugins() {
   return array(
     'style' => array(
       'jquery_carousel' => array(
-        'title' => t('jQuery Carousel plugin'),
+        'title' => t('jQuery Carousel'),
         'help' => t('Display the results as a jquery Carousel.'),
         'handler' => 'JqueryCarouselPluginStyleCarousel',
         'path' => drupal_get_path('module', 'jquery_carousel') . '/views/plugins',
