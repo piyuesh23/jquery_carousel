@@ -1,9 +1,10 @@
-/**
- * @file
- * Handles jcarousel initialization.
- */
+(function ($, window) {
 
-(function ($) {
+  "use strict";
+
+  /**
+   * Provide the default information for the Jquery Carousel.
+   */
   Drupal.behaviors.jqueryCarousel = {
     attach: function (context, settings) {
       var jcarouselSettings = Drupal.settings.jquery_carousel;
@@ -19,4 +20,4 @@
       }
     }
   };
-})(jQuery);
+})(jQuery, window);

@@ -1,6 +1,0 @@
-name = jquery carousel
-description = Formats data in form of a carousel.
-core = 7.x
-
-dependencies[] = libraries
-files[] = views/plugins/JqueryCarouselPluginStyleCarousel.inc
